@@ -6,8 +6,8 @@
         <description>Recent content on K0max&#39;s Page</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-CN</language>
-        <lastBuildDate>Wed, 13 Mar 2024 21:12:04 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Test</title>
+        <lastBuildDate>Wed, 20 Mar 2024 15:58:10 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Test Post</title>
         <link>http://localhost:1313/post/post-test/</link>
         <pubDate>Wed, 13 Mar 2024 21:12:04 +0800</pubDate>
         
@@ -15,26 +15,9 @@
         <description>&lt;h2 id=&#34;hello-world&#34;&gt;Hello World!&lt;/h2&gt;
 &lt;p&gt;This is a test post of hugo.&lt;/p&gt;
 &lt;h2 id=&#34;lets-try-some-math-input&#34;&gt;Let&amp;rsquo;s try some math input&lt;/h2&gt;
-&lt;p&gt;It seems that math input are not supported in this theme.&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Test2</title>
-        <link>http://localhost:1313/post/test2/</link>
-        <pubDate>Wed, 13 Mar 2024 15:20:09 +0800</pubDate>
-        
-        <guid>http://localhost:1313/post/test2/</guid>
-        <description>&lt;h1 id=&#34;why-cant-test&#34;&gt;Why can&amp;rsquo;t test?&lt;/h1&gt;
-</description>
-        </item>
-        <item>
-        <title>Maybe Real Post</title>
-        <link>http://localhost:1313/post/maybe-real-post/</link>
-        <pubDate>Tue, 12 Mar 2024 15:00:26 +0800</pubDate>
-        
-        <guid>http://localhost:1313/post/maybe-real-post/</guid>
-        <description>&lt;h1 id=&#34;what-happened&#34;&gt;What happened?&lt;/h1&gt;
-&lt;p&gt;Let me try?&lt;/p&gt;
+&lt;p&gt;$$
+\sum_{k=0}^{\infty} \frac{1}{k!} = \mathrm{e}
+$$&lt;/p&gt;
 </description>
         </item>
         

@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 阅读本文前应该已经了解git的使用,基本命令行操作, 且已经安装了Hugo 由于网络上众多文章发布时间较早, Hugo 和GitHub 产生了部分更新导致有一定出入,遂为此文 本文精简了官方文档的可选操作,故每一步基本都是必要操作 GitHub 相关操作 首先新建名为 username.github.io 的repo, username 必须为你的 GitHub 用户名, 不得有误 到GitHub-&gt;Settings-&gt;Developer settings-&gt;Personal access token-&gt;Tokens(classic)生成access token 注意: access token仅会展示一次,一定要保存到本地 2023年某月开始GitHub不再允许通过username和password进行git push, 转为使用username和access token. Hugo 本地仓库 新建文件夹 reponame 并 cd 进入(后续将该目录简称为repo), 然后 hugo new site sitename, sitename 随意. 进行git init初始化 安装主题(theme) git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke 此时在repo/themes下会出现一个名为ananke的文件夹 修改配置(hugo.toml) 打开repo/hugo.toml(若无则新建), 注意: 在2023.2 Hugo官方将config.toml迁移到了hugo.toml, 故网络上的文章提到的config.toml 现在即为hugo.toml. baseURL = &#39;https://username.github.io&#39; languageCode = &#39;zh-CN&#39; title = &#34;Choose a name by yourself&#34; theme = &#39;ananke&#39; 新建一条post hugo new content post/newpost.">
+<title>Hugo GitHub主页搭建与踩坑记</title>
+
+<link rel='canonical' href='http://localhost:1313/post/hugo-setup/'>
+
+<link rel="stylesheet" href="/scss/style.min.d8118f156935b64eca93aca758476adca858d2c47354971654d9bd2933a0e45f.css"><meta property='og:title' content="Hugo GitHub主页搭建与踩坑记">
+<meta property='og:description' content="前言 阅读本文前应该已经了解git的使用,基本命令行操作, 且已经安装了Hugo 由于网络上众多文章发布时间较早, Hugo 和GitHub 产生了部分更新导致有一定出入,遂为此文 本文精简了官方文档的可选操作,故每一步基本都是必要操作 GitHub 相关操作 首先新建名为 username.github.io 的repo, username 必须为你的 GitHub 用户名, 不得有误 到GitHub-&gt;Settings-&gt;Developer settings-&gt;Personal access token-&gt;Tokens(classic)生成access token 注意: access token仅会展示一次,一定要保存到本地 2023年某月开始GitHub不再允许通过username和password进行git push, 转为使用username和access token. Hugo 本地仓库 新建文件夹 reponame 并 cd 进入(后续将该目录简称为repo), 然后 hugo new site sitename, sitename 随意. 进行git init初始化 安装主题(theme) git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke 此时在repo/themes下会出现一个名为ananke的文件夹 修改配置(hugo.toml) 打开repo/hugo.toml(若无则新建), 注意: 在2023.2 Hugo官方将config.toml迁移到了hugo.toml, 故网络上的文章提到的config.toml 现在即为hugo.toml. baseURL = &#39;https://username.github.io&#39; languageCode = &#39;zh-CN&#39; title = &#34;Choose a name by yourself&#34; theme = &#39;ananke&#39; 新建一条post hugo new content post/newpost.">
+<meta property='og:url' content='http://localhost:1313/post/hugo-setup/'>
+<meta property='og:site_name' content='K0max&#39;s Page'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2024-03-20T15:58:10&#43;08:00'/><meta property='article:modified_time' content='2024-03-20T15:58:10&#43;08:00'/>
+<meta name="twitter:title" content="Hugo GitHub主页搭建与踩坑记">
+<meta name="twitter:description" content="前言 阅读本文前应该已经了解git的使用,基本命令行操作, 且已经安装了Hugo 由于网络上众多文章发布时间较早, Hugo 和GitHub 产生了部分更新导致有一定出入,遂为此文 本文精简了官方文档的可选操作,故每一步基本都是必要操作 GitHub 相关操作 首先新建名为 username.github.io 的repo, username 必须为你的 GitHub 用户名, 不得有误 到GitHub-&gt;Settings-&gt;Developer settings-&gt;Personal access token-&gt;Tokens(classic)生成access token 注意: access token仅会展示一次,一定要保存到本地 2023年某月开始GitHub不再允许通过username和password进行git push, 转为使用username和access token. Hugo 本地仓库 新建文件夹 reponame 并 cd 进入(后续将该目录简称为repo), 然后 hugo new site sitename, sitename 随意. 进行git init初始化 安装主题(theme) git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke 此时在repo/themes下会出现一个名为ananke的文件夹 修改配置(hugo.toml) 打开repo/hugo.toml(若无则新建), 注意: 在2023.2 Hugo官方将config.toml迁移到了hugo.toml, 故网络上的文章提到的config.toml 现在即为hugo.toml. baseURL = &#39;https://username.github.io&#39; languageCode = &#39;zh-CN&#39; title = &#34;Choose a name by yourself&#34; theme = &#39;ananke&#39; 新建一条post hugo new content post/newpost.">
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column compact"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/avatar_hu2fa3ec8e9a75433f013d93aa5c628f9c_17958_300x0_resize_q75_box.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">K0max&#39;s Page</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu" id="main-menu">
+        
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/post/hugo-setup/">Hugo GitHub主页搭建与踩坑记</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Mar 20, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="前言">前言</h1>
+<p>阅读本文前应该已经了解git的使用,基本命令行操作, 且已经安装了Hugo</p>
+<p>由于网络上众多文章发布时间较早, Hugo 和GitHub 产生了部分更新导致有一定出入,遂为此文</p>
+<p>本文精简了官方文档的可选操作,故每一步基本都是必要操作</p>
+<h1 id="github-相关操作">GitHub 相关操作</h1>
+<p>首先新建名为 <code>username.github.io</code> 的repo, <code>username</code> <strong>必须</strong>为你的 GitHub 用户名, 不得有误</p>
+<p>到<code>GitHub-&gt;Settings-&gt;Developer settings-&gt;Personal access token-&gt;Tokens(classic)</code>生成access token</p>
+<p><strong>注意:</strong> access token仅会展示一次,一定要保存到本地</p>
+<p>2023年某月开始GitHub不再允许通过username和password进行git push, 转为使用username和access token.</p>
+<h1 id="hugo-本地仓库">Hugo 本地仓库</h1>
+<p>新建文件夹 <code>reponame</code> 并 <code>cd</code> 进入(后续将该目录简称为<code>repo</code>), 然后 <code>hugo new site sitename</code>, <code>sitename</code> 随意. 进行<code>git init</code>初始化</p>
+<h2 id="安装主题theme">安装主题(theme)</h2>
+<pre tabindex="0"><code>git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
+</code></pre><p>此时在<code>repo/themes</code>下会出现一个名为<code>ananke</code>的文件夹</p>
+<h2 id="修改配置hugotoml">修改配置(hugo.toml)</h2>
+<p>打开<code>repo/hugo.toml</code>(若无则新建), <strong>注意:</strong> 在2023.2 Hugo官方将<code>config.toml</code>迁移到了<code>hugo.toml</code>, 故网络上的文章提到的<code>config.toml</code> 现在即为<code>hugo.toml</code>.</p>
+<pre tabindex="0"><code>baseURL = &#39;https://username.github.io&#39;
+languageCode = &#39;zh-CN&#39;
+title = &#34;Choose a name by yourself&#34;
+theme = &#39;ananke&#39;
+</code></pre><h2 id="新建一条post">新建一条post</h2>
+<pre tabindex="0"><code>hugo new content post/newpost.md
+</code></pre><p><strong>注意:</strong> 虽然Hugo官方doc给的是 <code>posts/newpost.md</code> 但是(部分/大部分?)主题并不识别 <code>posts</code> 而是 <code>'post</code></p>
+<p>此时会在<code>repo/content/post</code>下创建文件,修改该.md文件. 文件开头被加号包起来的东西叫作 <code>frontmatter</code></p>
+<p><strong>注意:</strong> 记得修改<code>draft</code> 或者 <code>date</code>, 否则等下部署的时候也不会出现任何post</p>
+<h2 id="本地部署测试">本地部署测试</h2>
+<pre tabindex="0"><code>hugo server
+</code></pre><p>然后打开浏览器访问<code>http://localhost:1313</code>.</p>
+<p><code>hugo</code>或<code>hugo server</code>都会查看<code>repo/content/post</code>下的文件,然后在<code>repo/public</code>下生成相应的.html</p>
+<p>本地进行<code>git commit</code></p>
+<h1 id="部署到github">部署到GitHub</h1>
+<h2 id="github操作">GitHub操作</h2>
+<p>到你<code>username.github.io</code>下, <code>Settings-&gt;Pages</code>, 找到<code>Build and Deployment</code>, 将<code>Source</code>从<code>Deploy from a branch</code>改为<code>GitHub Actions</code></p>
+<h2 id="本地操作">本地操作</h2>
+<p>新建<code>repo/.github/workflows/hugo.yaml</code>,填入下面的内容</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># Sample workflow for building and deploying a Hugo site to GitHub Pages</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">name</span>: <span style="color:#ae81ff">Deploy Hugo site to Pages</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">on</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Runs on pushes targeting the default branch</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">push</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">branches</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#ae81ff">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Allows you to run this workflow manually from the Actions tab</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">workflow_dispatch</span>:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">permissions</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">contents</span>: <span style="color:#ae81ff">read</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">pages</span>: <span style="color:#ae81ff">write</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">id-token</span>: <span style="color:#ae81ff">write</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">concurrency</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">group</span>: <span style="color:#e6db74">&#34;pages&#34;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">cancel-in-progress</span>: <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Default to bash</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">defaults</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">run</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">bash</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">jobs</span>:
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Build job</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">build</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">HUGO_VERSION</span>: <span style="color:#ae81ff">0.124.0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install Hugo CLI</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          wget -O ${{ runner.temp }}/hugo.deb https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_linux-amd64.deb \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          &amp;&amp; sudo dpkg -i ${{ runner.temp }}/hugo.deb          </span>          
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install Dart Sass</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: <span style="color:#ae81ff">sudo snap install dart-sass</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Checkout</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/checkout@v4</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">submodules</span>: <span style="color:#ae81ff">recursive</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">fetch-depth</span>: <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Setup Pages</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">id</span>: <span style="color:#ae81ff">pages</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/configure-pages@v4</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install Node.js dependencies</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: <span style="color:#e6db74">&#34;[[ -f package-lock.json || -f npm-shrinkwrap.json ]] &amp;&amp; npm ci || true&#34;</span>
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Build with Hugo</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">env</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#75715e"># For maximum backward compatibility with Hugo modules</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">HUGO_ENVIRONMENT</span>: <span style="color:#ae81ff">production</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">HUGO_ENV</span>: <span style="color:#ae81ff">production</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">run</span>: |<span style="color:#e6db74">
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">          hugo \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            --gc \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            --minify \
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            --baseURL &#34;${{ steps.pages.outputs.base_url }}/&#34;          </span>          
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Upload artifact</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/upload-pages-artifact@v3</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">with</span>:
+</span></span><span style="display:flex;"><span>          <span style="color:#f92672">path</span>: <span style="color:#ae81ff">./public</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e"># Deployment job</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">deploy</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">environment</span>:
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">name</span>: <span style="color:#ae81ff">github-pages</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">url</span>: <span style="color:#ae81ff">${{ steps.deployment.outputs.page_url }}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">runs-on</span>: <span style="color:#ae81ff">ubuntu-latest</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">needs</span>: <span style="color:#ae81ff">build</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">steps</span>:
+</span></span><span style="display:flex;"><span>      - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Deploy to GitHub Pages</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">id</span>: <span style="color:#ae81ff">deployment</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#f92672">uses</span>: <span style="color:#ae81ff">actions/deploy-pages@v4</span>
+</span></span></code></pre></div><p>记得修改上面的hugo version(好像不改也没事)</p>
+<p>添加远程仓库, origin作为别名(当然也可以用别的奇怪的别名,origin只是一种范例而非关键字)</p>
+<pre tabindex="0"><code>git remote add origin https://github.io/username.github.io
+</code></pre><p>推送到远程仓库</p>
+<pre tabindex="0"><code>git push origin main
+</code></pre><p>会弹出来验证信息,要求输入用户名和密码(名义上是密码,但是应该输入access token, 如果输入密码会提示使用密码验证已经不再支持)</p>
+<h1 id="为什么本地测试没有post显示">为什么本地测试没有post显示?</h1>
+<p>可能有以下几种情况: (post 指代<code>repo/content/post/youpost.md</code>)</p>
+<ol>
+<li>post的frontmatter中的date是明天</li>
+<li>post中<code>draft=true</code>, 应改为 <code>draft=false</code>. 或者采用<code>hugo server -D</code> 也可将草稿内容部署到网站</li>
+<li>你使用了<code>hugo new content posts/post.md</code> 而非 <code>hugo new content post/post.md</code>, 主题可能是寻找<code>post</code>文件夹而非<code>posts</code>文件夹生成.html文件的(Hugo官方doc和theme总有一种脱节的美). 或者到theme文件夹里修改<code>config.yaml</code> 将 <code>mainSections</code> 改成 <code>posts</code></li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.querySelector(`.article-content`), {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    <div class="disqus-container">
+    
+</div>
+
+<style>
+    .disqus-container {
+        background-color: var(--card-background);
+        border-radius: var(--card-border-radius);
+        box-shadow: var(--shadow-l1);
+        padding: var(--card-padding);
+    }
+</style>
+
+<script>
+    window.addEventListener('onColorSchemeChange', (e) => {
+        if (typeof DISQUS == 'object') {
+            DISQUS.reset({
+                reload: true
+            });
+        }
+    })
+</script>
+
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 K0max&#39;s Page
+    </section>
+    
+    <section class="powerby">
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.24.2">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

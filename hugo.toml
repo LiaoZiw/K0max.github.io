@@ -1,0 +1,4 @@
+baseURL = 'https://K0max.github.io'
+languageCode = 'zh-CN'
+title = "K0max's Page"
+theme = 'hugo-theme-stack'

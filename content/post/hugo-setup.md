@@ -28,7 +28,7 @@ toc = true
 
 ## 安装主题(theme)
 
-```
+```sh
 git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git themes/ananke
 ```
 此时在`repo/themes`下会出现一个名为`ananke`的文件夹
@@ -37,7 +37,7 @@ git submodule add https://github.com/theNewDynamic/gohugo-theme-ananke.git theme
 
 打开`repo/hugo.toml`(若无则新建), **注意:** 在2023.2 Hugo官方将`config.toml`迁移到了`hugo.toml`, 故网络上的文章提到的`config.toml` 现在即为`hugo.toml`.
 
-```
+```toml
 baseURL = 'https://username.github.io'
 languageCode = 'zh-CN'
 title = "Choose a name by yourself"
@@ -46,7 +46,7 @@ theme = 'ananke'
 
 ## 新建一条post
 
-```
+```sh
 hugo new content post/newpost.md
 ```
 **注意:** 虽然Hugo官方doc给的是 `posts/newpost.md` 但是(部分/大部分?)主题并不识别 `posts` 而是 `'post`
@@ -57,7 +57,7 @@ hugo new content post/newpost.md
 
 ## 本地部署测试
 
-```
+```sh
 hugo server
 ```
 然后打开浏览器访问`http://localhost:1313`.
@@ -158,11 +158,11 @@ jobs:
 记得修改上面的hugo version(好像不改也没事)
 
 添加远程仓库, origin作为别名(当然也可以用别的奇怪的别名,origin只是一种范例而非关键字)
-```
+```sh
 git remote add origin https://github.io/username.github.io
-```
+```sh
 推送到远程仓库
-```
+```sh
 git push origin main
 ```
 会弹出来验证信息,要求输入用户名和密码(名义上是密码,但是应该输入access token, 如果输入密码会提示使用密码验证已经不再支持)

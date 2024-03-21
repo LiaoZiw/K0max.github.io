@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html lang="zh-CN" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="USTCer with low GPA">
-<title>404 Page not found</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="">
+<title>Search</title>
 
-<link rel='canonical' href='http://localhost:1313/404.html'>
+<link rel='canonical' href='http://localhost:1313/page/search/'>
 
-<link rel="stylesheet" href="/scss/style.min.d8118f156935b64eca93aca758476adca858d2c47354971654d9bd2933a0e45f.css"><meta property='og:title' content="404 Page not found">
-<meta property='og:description' content="USTCer with low GPA">
-<meta property='og:url' content='http://localhost:1313/404.html'>
+<link rel="stylesheet" href="/scss/style.min.d8118f156935b64eca93aca758476adca858d2c47354971654d9bd2933a0e45f.css"><meta property='og:title' content="Search">
+<meta property='og:description' content="">
+<meta property='og:url' content='http://localhost:1313/page/search/'>
 <meta property='og:site_name' content='K0max'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2024-03-20T15:58:10&#43;08:00 '/>
-<meta name="twitter:title" content="404 Page not found">
-<meta name="twitter:description" content="USTCer with low GPA">
+<meta property='og:type' content='article'><meta property='article:section' content='Page' />
+<meta name="twitter:title" content="Search">
+<meta name="twitter:description" content=""><link rel="alternate" type="application/json" href="http://localhost:1313/page/search/index.json">
     <link rel="shortcut icon" href="/favicon.jpg" />
-
+<link rel="preload" href="/page/search/index.json" as="fetch" crossorigin="anonymous">
     </head>
-    <body class="">
+    <body class="template-search">
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -138,7 +138,7 @@
         </li>
         
         
-        <li >
+        <li  class='current' >
             <a href='/page/search/' >
                 
                 
@@ -225,11 +225,34 @@
 </aside>
 
             <main class="main full-width">
-    <div class="not-found-card">
-        <h1 class="article-title"></h1>
-        <h2 class="article-subtitle"></h2>
-    </div>
-    <footer class="site-footer">
+<form action="/page/search/" class="search-form"data-json="/page/search/index.json">
+    <p>
+        <label></label>
+        <input name="keyword" placeholder="" />
+    </p>
+
+    <button title="">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+    </button>
+</form>
+
+<div class="search-result">
+    <h3 class="search-result--title section-title"></h3>
+    <div class="search-result--list article-list--compact"></div>
+</div>
+
+<script>
+    window.searchResultTitleTemplate = ""
+</script><script type="text/javascript" src="/ts/search.js" defer></script>
+
+<footer class="site-footer">
     <section class="copyright">
         &copy; 
         

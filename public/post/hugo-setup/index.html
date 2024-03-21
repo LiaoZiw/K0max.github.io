@@ -374,7 +374,7 @@
 <pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">hugo new content post/newpost.md
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><strong>注意:</strong> 虽然Hugo官方doc给的是 <code>posts/newpost.md</code> 但是(部分/大部分?)主题并不识别 <code>posts</code> 而是 <code>'post</code></p>
+</div><p><strong>注意:</strong> 虽然Hugo官方doc给的是 <code>posts/newpost.md</code> 但是(部分/大部分?)主题并不识别 <code>posts</code> 而是 <code>post</code></p>
 <p>此时会在<code>repo/content/post</code>下创建文件,修改该.md文件. 文件开头被加号包起来的东西叫作 <code>frontmatter</code></p>
 <p><strong>注意:</strong> 记得修改<code>draft</code> 或者 <code>date</code>, 否则等下部署的时候也不会出现任何post</p>
 <h2 id="本地部署测试">本地部署测试</h2>
@@ -561,22 +561,23 @@
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git remote add origin https://github.io/username.github.io
-</span></span><span class="line"><span class="cl"><span class="sb">```</span>sh
-</span></span><span class="line"><span class="cl">推送到远程仓库
-</span></span><span class="line"><span class="cl"><span class="sb">```</span>sh
-</span></span><span class="line"><span class="cl">git push origin main
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>推送到远程仓库</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-sh" data-lang="sh"><span class="line"><span class="cl">git push origin main
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>会弹出来验证信息,要求输入用户名和密码(名义上是密码,但是应该输入access token, 如果输入密码会提示使用密码验证已经不再支持)</p>
 <h1 id="为什么本地测试没有post显示">为什么本地测试没有post显示?</h1>
-<p>可能有以下几种情况: (post 指代<code>repo/content/post/youpost.md</code>)</p>
+<p>可能有以下几种情况: (post 指代<code>repo/content/post/yourpost.md</code>)</p>
 <ol>
 <li>post的frontmatter中的date是明天</li>
 <li>post中<code>draft=true</code>, 应改为 <code>draft=false</code>. 或者采用<code>hugo server -D</code> 也可将草稿内容部署到网站</li>

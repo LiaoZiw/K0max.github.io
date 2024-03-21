@@ -49,7 +49,7 @@ theme = 'ananke'
 ```sh
 hugo new content post/newpost.md
 ```
-**注意:** 虽然Hugo官方doc给的是 `posts/newpost.md` 但是(部分/大部分?)主题并不识别 `posts` 而是 `'post`
+**注意:** 虽然Hugo官方doc给的是 `posts/newpost.md` 但是(部分/大部分?)主题并不识别 `posts` 而是 `post`
 
 此时会在`repo/content/post`下创建文件,修改该.md文件. 文件开头被加号包起来的东西叫作 `frontmatter`
 
@@ -160,7 +160,7 @@ jobs:
 添加远程仓库, origin作为别名(当然也可以用别的奇怪的别名,origin只是一种范例而非关键字)
 ```sh
 git remote add origin https://github.io/username.github.io
-```sh
+```
 推送到远程仓库
 ```sh
 git push origin main
@@ -169,7 +169,7 @@ git push origin main
 
 # 为什么本地测试没有post显示?
 
-可能有以下几种情况: (post 指代`repo/content/post/youpost.md`)
+可能有以下几种情况: (post 指代`repo/content/post/yourpost.md`)
 1. post的frontmatter中的date是明天
 2. post中`draft=true`, 应改为 `draft=false`. 或者采用`hugo server -D` 也可将草稿内容部署到网站
 3. 你使用了`hugo new content posts/post.md` 而非 `hugo new content post/post.md`, 主题可能是寻找`post`文件夹而非`posts`文件夹生成.html文件的(Hugo官方doc和theme总有一种脱节的美). 或者到theme文件夹里修改`config.yaml` 将 `mainSections` 改成 `posts`

@@ -7,6 +7,55 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-CN</language>
         <lastBuildDate>Fri, 07 Jun 2024 23:48:45 +0800</lastBuildDate><atom:link href="http://localhost:1313/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>论文翻译版和原版合成同页对比版pdf</title>
+        <link>http://localhost:1313/post/aca-translation/</link>
+        <pubDate>Fri, 07 Jun 2024 23:48:45 +0800</pubDate>
+        
+        <guid>http://localhost:1313/post/aca-translation/</guid>
+        <description>&lt;h1 id=&#34;为啥要整这个&#34;&gt;为啥要整这个&lt;/h1&gt;
+&lt;p&gt;我在使用学术 GPT 进行原文翻译的时候, 发现中文版偶尔会有乱码, 而且是凭空占一页(把该页正常的翻译内容挤到下一页去了), 这样导致对比版内容对不上.&lt;/p&gt;
+&lt;h1 id=&#34;如何解决&#34;&gt;如何解决?&lt;/h1&gt;
+&lt;p&gt;我用了比较笨的办法, 把单独的翻译版 pdf 拿出来, 手动删除错误页, 然后手动把原版和翻译版拼接起来, 形成像学术 GPT 那样的 comparison版本, 但是怎么做到呢? 我用了一点 LaTeX 的技术&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt; 1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 3
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 4
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 5
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 6
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 7
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 8
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt; 9
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;10
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;11
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;12
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;13
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;14
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;15
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-tex&#34; data-lang=&#34;tex&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;\documentclass&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;article&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;\usepackage&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;[utf8]&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;inputenc&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;\usepackage&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;pdfpages&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;\usepackage&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;forloop&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;\begin&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;document&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;\newcounter&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;x&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;\forloop&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;x&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;1&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;\value&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;x&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt; &amp;lt; 23&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;\includepdfmerge&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;[nup=1x2, landscape]&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;RCNN-en.pdf, &lt;span class=&#34;k&#34;&gt;\arabic&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;x&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;, RCNN-zh.pdf, &lt;span class=&#34;k&#34;&gt;\arabic&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;x&lt;span class=&#34;nb&#34;&gt;}}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;\forloop&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;x&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;23&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;\value&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;x&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt; &amp;lt; 26&lt;span class=&#34;nb&#34;&gt;}{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;  &lt;span class=&#34;k&#34;&gt;\includepdfmerge&lt;/span&gt;&lt;span class=&#34;na&#34;&gt;[nup=1x2, landscape]&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;RCNN-en.pdf, &lt;span class=&#34;k&#34;&gt;\arabic&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;x&lt;span class=&#34;nb&#34;&gt;}}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;\end&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;{&lt;/span&gt;document&lt;span class=&#34;nb&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;p&gt;主要就是使用 pdfpages 包, 英文版有 25 页, 中文版有 22 页, 第一个 loop 就是一页一页放上去, 第二个 loop 是把英文版剩下的 3 页放上去&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Hugo GitHub主页搭建与踩坑记</title>
         <link>http://localhost:1313/post/hugo-setup/</link>
         <pubDate>Wed, 20 Mar 2024 15:58:10 +0800</pubDate>

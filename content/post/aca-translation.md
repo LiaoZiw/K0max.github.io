@@ -1,7 +1,7 @@
 +++
 title = '论文翻译版和原版合成同页对比版pdf'
 date = 2024-06-07T23:48:45+08:00
-draft = true
+draft = false
 +++
 
 # 为啥要整这个

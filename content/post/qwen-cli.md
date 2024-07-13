@@ -8,7 +8,7 @@ draft = false
 
 ## 我为啥要整这玩意?
 
-没啥就闲得慌, 最近在补 NJU jyy OS 课程, 老师上课演示有一个 ag 命令(应该是自己写的)调用GPT API. 闲着无聊想整一个类似的, 刚好通义千问的 API 很便宜. 新人注册阿里云灵积会给每个模型赠送限时一个月的 1e6 token(对qwen-long qwen-turbo qwen-max qwen-plus 等模型分别赠送一百万token)
+没啥就闲得慌, 最近在补 NJU jyy OS 课程, 老师上课演示有一个 ag(askGPT) 命令(应该是自己写的)调用GPT API. 闲着无聊想整一个类似的, 刚好通义千问的 API 很便宜. 新人注册阿里云灵积会给每个模型赠送限时一个月的 1e6 token(对qwen-long qwen-turbo qwen-max qwen-plus 等模型分别赠送一百万token)
 
 ## 开整
 
@@ -35,12 +35,11 @@ model_name_list = ["qwen-long", "qwen-turbo", "qwen-plus", "qwen-max"]
 
 def strProcess(res_text):
     # replace multiple literal '\n' with one '\n'
-    # res_text = re.sub(r"\n{2,}", "\n", print_text)
-    res_text = res_text.replace(r"\n", "\n")
+    res_text = re.sub(r'(\\n)+', '\n', res_text)
     # replace \" with "
-    res_text = res_text.replace(r'\\"', '"')
+    res_text = res_text.replace('\\"', '"')
     # replace \' with '
-    res_text = res_text.replace(r"\\'", "'")
+    res_text = res_text.replace("\\'", "'")
     return res_text
 
 
@@ -68,6 +67,7 @@ def chat(model_name="qwen-turbo"):
             },
         }
         response = requests.post(API_URL, headers=headers, json=body, stream=True)
+        # response = requests.post(API_URL, headers=headers, json=body, stream=True, proxies=None)
 
         response_content = ""
         print(f"A{round_num}: ", end="")
@@ -77,11 +77,10 @@ def chat(model_name="qwen-turbo"):
             if match:
                 # Catch the content in the response
                 print_text = match.group(1)
+                response_content += print_text
                 # Process the content to make it more readable
                 print_text = strProcess(print_text)
-
                 print(print_text, end="", flush=True)
-                response_content += print_text
 
         messages.append({"role": "assistant", "content": response_content})
         print("\n")
@@ -108,6 +107,10 @@ if __name__ == "__main__":
 alias qwen="python3 /path/to/qwen.py"
 ```
 
-命令行也可以加参数 `-n max` 用来调用 `qwen-max` 模型, 默认为 `qwen-turbo`
+命令行也可以加参数 `--n max` 用来调用 `qwen-max` 模型, 默认为 `qwen-turbo`
 
 这个脚本实际上没啥难的(所以说是破事水). 但如果正常发包的话, 需要等模型完全输出答案之后本地才能突然 print 出全部输出, 这等起来实在讨厌. 所以加一个流式传输, 就能像浏览器里面一样, 一个字一个字地蹦出回答了. 然后再把流式输出聚成一坨加入 messages 实现多轮对话
+
+## 可能还有些问题?
+
+实际上我在日常使用的时候, Qwen 有时候会长时间卡住, 不清楚是我设置了代理导致的还是阿里云服务器负载太高. 我尝试过设置 POST `proxies=None`, 也有在调用前 unset 所有代理, 不过不管用
